@@ -1,5 +1,10 @@
-import re, json
+import re, json, csv
 
 with open("logs.json","r") as file:
-    data = json.load(file)
-    print(data[0])
+    with open("error_logs.csv","w") as write_file:
+        writer = csv.writer(write_file)
+        writer.writerow(["timestamp","level","message"])
+        data = json.load(file)
+        for line in data:
+            if re.search(r"ERROR",line["level"],re.IGNORECASE):
+                writer.writerow(line.values())
