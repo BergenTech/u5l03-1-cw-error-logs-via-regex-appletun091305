@@ -7,4 +7,5 @@ with open("logs.json","r") as file:
         data = json.load(file)
         for line in data:
             if re.search(r"ERROR",line["level"],re.IGNORECASE):
+                line["level"] = "ERROR"
                 writer.writerow(line.values())
